@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'mdbreact';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
+import { Container, Row, Col, Input, Button } from 'mdbreact';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+//import { Input } from 'react-native-elements';
 
 class Login extends React.Component  {
   render() {
@@ -14,7 +14,7 @@ class Login extends React.Component  {
               <br/>
               <div className="grey-text">
                 <p>Email:</p>
-                <Input  leftIcon={{ type: 'font-awesome', name: 'chevron-left' }} group type="email" validate error="wrong" success="right"/>
+                <Input group type="email" validate error="wrong" success="right"/>
                 <p> Password: </p>
                 <Input  icon="lock" group type="password" validate/>
               </div>
