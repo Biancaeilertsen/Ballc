@@ -1,5 +1,4 @@
 import React,  { Component } from 'react';
-import Form from '../components/Form';
 import Personlist from '../components/Personlist';
 import PersonInput from '../components/PersonInput';
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import Popups from './Popups';
 import './Navigator.css'
 
 export default class Navigator extends Component {
@@ -27,6 +28,10 @@ export default class Navigator extends Component {
           <Nav pullRight>
             <NavItem eventKey={1} href="/User" to="/User">
               Profile
+            </NavItem>Login
+
+            <NavItem eventKey={1} onClick={Popups.handleShow}>
+              Login
             </NavItem>
           </Nav>
         </Navbar.Collapse>
