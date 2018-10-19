@@ -7,7 +7,7 @@ export default class Personlist extends React.Component {
   }
 
   componentDidMount(){
-    axios.get('http://ea-case-ballc.herokuapp.com/test')
+    axios.get('https://ea-case-ballc.herokuapp.com/test')
     .then(res=> {
       console.log(res);
       this.setState({ persons: res.data});
