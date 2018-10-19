@@ -1,11 +1,34 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import Popups from './Popups';
+import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
+import Login from  './Login';
+import SignUp from './SignUp'
+
 import './Navigator.css'
 
 export default class Navigator extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
+    this.state = {
+      show: false
+    };
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
   render(){
     return(
+      <div>
+
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
@@ -30,12 +53,31 @@ export default class Navigator extends Component {
               Profile
             </NavItem>Login
 
-            <NavItem eventKey={1} onClick={Popups.handleShow}>
+            <NavItem eventKey={1} onClick={this.handleShow}>
               Login
             </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Access your BallC account!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+              <Tab eventKey={1} title="Log in">
+                <Login />
+              </Tab>
+              <Tab eventKey={2} title="Sign up">
+                <SignUp />
+              </Tab>
+            </Tabs>
+          </Modal.Body>
+          <Modal.Footer>
+            <p>Thank you for using our site!</p>
+          </Modal.Footer>
+        </Modal>
+      </div>
     )
   }
 }

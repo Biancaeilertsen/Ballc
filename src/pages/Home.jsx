@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Jumbotron, Grid, Button } from 'react-bootstrap';
-import Popups from '../components/Popups';
 import './Home.css'
 
 export default class Home extends Component {
@@ -17,7 +16,6 @@ export default class Home extends Component {
             </Link>
           </Jumbotron>
         </Grid>
-        <Popups />
       </div>
     )
   }
