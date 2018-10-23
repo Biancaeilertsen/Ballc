@@ -1,11 +1,66 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
-import axios from 'axios'
+import {PostData} from '../PostData';
+import {Redirect} from 'react-router-dom';
 
 class Login extends React.Component  {
 
+  constructor(props){
+    super(props);
+    this.state={
+      username:'',
+      password:'',
+      email:'',
+      error:'',
+      redirect: false
+    }
+    this.signup = this.signup.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+
+  signup(){
+    if(this.state.password == this.state.confpassword){
+      if(this.state.username && this.state.password &&  this.state.email){
+        console.log("Signup function");
+        PostData('users', this.state).then ((result) => {
+          let responseJSON = result;
+          if(responseJSON.userdata){
+            sessionStorage.setItem('userData',responseJSON );
+            this.setState({redirect: true});
+          }
+          else {
+            console.log("Login error");
+          }
+        });
+      }
+      else{
+        this.setState({error:'Make sure to fill out all the fields!'});
+      }
+    }
+    else{
+      this.setState({error:'Make sure your passwords match!'});
+    }
+  }
+
+  onChange(e){
+    this.setState({[e.target.name]: e.target.value});
+    console.log(this.state);
+  }
+
+
+
 
   render() {
+
+  /*  if(this.state.redirect){
+      return(<Redirect to={'/teams'}/>)
+    }
+
+    if(sessionStorage.getItem("userData")){
+      return(<Redirect to={'/teams'}/>)
+    }*/
+
     return(
       <Container>
         <Row>
@@ -15,19 +70,44 @@ class Login extends React.Component  {
               <br/>
               <div className="grey-text">
                 <p>Username:</p>
-                <Input name="name" group type="text" validate error="wrong" placeholder="Username" success="right"/>
+                <Input
+                  name="username"
+                  group type="text"
+                  validate error="wrong"
+                  placeholder="Username"
+                  onChange={this.onChange}
+                success="right"/>
+
                 <p>Email:</p>
-                <Input name="email" group type="email" validate error="wrong" placeholder="Email" success="right"/>
-                <p>Confirm Email:</p>
-                <Input name="confemail" group type="text" validate error="wrong" placeholder="Email" success="right"/>
+                <Input
+                  name="email"
+                  group type="email"
+                  validate error="wrong"
+                  placeholder="Email"
+                  onChange={this.onChange}
+                success="right"/>
+
                 <p>Password:</p>
-                <Input  name="password" group type="password" placeholder="Password" validate/>
+                <Input
+                  name="password"
+                  group type="password"
+                  placeholder="Password"
+                  onChange={this.onChange}
+                validate/>
+
                 <p>Confirm password:</p>
-                <Input  name="confpassword" group type="password" placeholder="Password" validate/>
+                <Input
+                  name="confpassword"
+                  group type="password"
+                  placeholder="Password"
+                  onChange={this.onChange}
+                validate/>
+
+                <p name="error"></p>
 
               </div>
               <div className="text-center">
-                <Button color="primary" type="submit">Register</Button>
+                <Button color="primary" onClick={this.signup} type="submit">Register</Button>
               </div>
             </form>
           </Col>

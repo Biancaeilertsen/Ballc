@@ -1,25 +1,35 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
 import {PostData} from '../PostData';
+import {Redirect} from 'react-router-dom';
 
 class Login extends React.Component  {
 
   constructor(props){
     super(props);
     this.state={
-      name:'',
-      password:''
+      username:'',
+      password:'',
+      redirect: false
     }
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
   login(){
-    console.log("Login function");
-    PostData('users', this.state).then ((result) => {
-      let responseJSON = result;
-      console.log(responseJSON)
-    });
+    if(this.state.username && this.state.password){
+      console.log("Login function");
+      PostData('users', this.state).then ((result) => {
+        let responseJSON = result;
+        if(responseJSON.userdata){
+          sessionStorage.setItem('userData',responseJSON );
+          this.setState({redirect: true});
+        }
+        else {
+          console.log("Login error");
+        }
+      });
+    }
   }
 
   onChange(e){
@@ -28,6 +38,16 @@ class Login extends React.Component  {
   }
 
   render() {
+
+  /*  if(this.state.redirect){
+      return(<Redirect to={'/teams'}/>)
+    }
+
+    if(sessionStorage.getItem("userData")){
+      return(<Redirect to={'/teams'}/>)
+    }*/
+
+
     return(
       <Container>
         <Row>
@@ -38,7 +58,7 @@ class Login extends React.Component  {
               <div className="grey-text">
                 <p>Username:</p>
                 <Input
-                  name="name"
+                  name="username"
                   group type="username"
                   validate error="wrong"
                   success="right"
