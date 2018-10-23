@@ -5,6 +5,7 @@ export function PostData(type, userData){
     return new Promise((resolve, reject) => {
        fetch(BaseURL+type,{
          method: 'POST',
+         mode:'no-cors',
          body: JSON.stringify(userData)
        })
        .then((response) => response.json())

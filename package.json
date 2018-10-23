@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "cors": "^2.8.4",
     "mdbootstrap": "^4.5.12",
     "mdbreact": "^4.8.1",
     "react": "^16.5.2",
