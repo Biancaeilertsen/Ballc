@@ -8,7 +8,7 @@ class Login extends React.Component  {
     super(props);
     this.state={
       name:'',
-  //    password:''
+      password:''
     }
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -16,7 +16,7 @@ class Login extends React.Component  {
 
   login(){
     console.log("Login function");
-    PostData('login', this.state).then ((result) => {
+    PostData('users', this.state).then ((result) => {
       let responseJSON = result;
       console.log(responseJSON)
     });
@@ -46,8 +46,8 @@ class Login extends React.Component  {
                 <p> Password: </p>
                 <Input
                   name="password"
-                  icon="lock"
                   group type="password"
+                  onChange={this.onChange}
                 validate/>
               </div>
               <div className="text-center">
