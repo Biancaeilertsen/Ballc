@@ -1,6 +1,6 @@
 export function PostData(type, userData){
 
-    let BaseURL = "http://fierce-oasis-98286.herokuapp.com/users";
+    let BaseURL = "https://fierce-oasis-98286.herokuapp.com/users";
 
     return new Promise((resolve, reject) => {
        fetch(BaseURL+type,{
