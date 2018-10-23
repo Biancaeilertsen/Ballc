@@ -1,47 +1,9 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
+import axios from 'axios'
 
 class Login extends React.Component  {
 
-  constructor(props) {
-      super(props);
-      this.state = {
-        email: '',
-        password: '',
-        name: ''
-      }
-    }
-
-    onNameChange = (event) => {
-      this.setState({name: event.target.value})
-    }
-
-    onEmailChange = (event) => {
-      this.setState({email: event.target.value})
-    }
-
-    onPasswordChange = (event) => {
-      this.setState({password: event.target.value})
-    }
-
-    onSubmitSignIn = () => {
-      fetch('heds.herokuapp.com', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          email: this.state.email,
-          password: this.state.password,
-          name: this.state.name
-        })
-      })
-        .then(response => response.json())
-        .then(user => {
-          if (user.id) {
-            this.props.loadUser(user)
-            this.props.onRouteChange('home');
-          }
-        })
-    }
 
   render() {
     return(
@@ -53,19 +15,19 @@ class Login extends React.Component  {
               <br/>
               <div className="grey-text">
                 <p>Username:</p>
-                <Input name="name" group type="text" validate error="wrong" success="right"/>
+                <Input name="name" group type="text" validate error="wrong" placeholder="Username" success="right"/>
                 <p>Email:</p>
-                <Input name="email" group type="email" validate error="wrong" success="right"/>
+                <Input name="email" group type="email" validate error="wrong" placeholder="Email" success="right"/>
                 <p>Confirm Email:</p>
-                <Input name="confemail" group type="text" validate error="wrong" success="right"/>
+                <Input name="confemail" group type="text" validate error="wrong" placeholder="Email" success="right"/>
                 <p>Password:</p>
-                <Input  name="password" group type="password" validate/>
+                <Input  name="password" group type="password" placeholder="Password" validate/>
                 <p>Confirm password:</p>
-                <Input  name="confpassword" group type="password" validate/>
+                <Input  name="confpassword" group type="password" placeholder="Password" validate/>
 
               </div>
               <div className="text-center">
-                <Button onClick={this.onSubmitSignIn} color="primary" type="submit">Register</Button>
+                <Button color="primary" type="submit">Register</Button>
               </div>
             </form>
           </Col>

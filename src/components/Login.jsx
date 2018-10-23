@@ -1,9 +1,32 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
-//import Icon from 'react-native-vector-icons/FontAwesome';
-//import { Input } from 'react-native-elements';
+import {PostData} from '../PostData';
 
 class Login extends React.Component  {
+
+  constructor(props){
+    super(props);
+    this.state={
+      name:'',
+  //    password:''
+    }
+    this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  login(){
+    console.log("Login function");
+    PostData('login', this.state).then ((result) => {
+      let responseJSON = result;
+      console.log(responseJSON)
+    });
+  }
+
+  onChange(e){
+    this.setState({[e.target.name]: e.target.value});
+    console.log(this.state);
+  }
+
   render() {
     return(
       <Container>
@@ -13,13 +36,22 @@ class Login extends React.Component  {
               <h1 className="h5 text-center mb-4">Log in</h1>
               <br/>
               <div className="grey-text">
-                <p>Email:</p>
-                <Input group type="email" validate error="wrong" success="right"/>
+                <p>Username:</p>
+                <Input
+                  name="name"
+                  group type="username"
+                  validate error="wrong"
+                  success="right"
+                  onChange={this.onChange}/>
                 <p> Password: </p>
-                <Input  icon="lock" group type="password" validate/>
+                <Input
+                  name="password"
+                  icon="lock"
+                  group type="password"
+                validate/>
               </div>
               <div className="text-center">
-                <Button color="primary">Login</Button>
+                <Button color="primary" onClick={this.login} >Login</Button>
               </div>
             </form>
           </Col>
