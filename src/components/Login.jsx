@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
 import {PostData} from '../PostData';
-import {Redirect} from 'react-router-dom';
 
 class Login extends React.Component  {
 

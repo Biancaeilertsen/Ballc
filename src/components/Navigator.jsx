@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
+import { Modal, Tabs, Tab } from 'react-bootstrap';
 import Login from  './Login';
 import SignUp from './SignUp'
 

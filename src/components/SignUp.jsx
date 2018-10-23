@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
 import {PostData} from '../PostData';
-import {Redirect} from 'react-router-dom';
 
 class Login extends React.Component  {
 
@@ -20,7 +19,7 @@ class Login extends React.Component  {
 
 
   signup(){
-    if(this.state.password == this.state.confpassword){
+    if(this.state.password === this.state.confpassword){
       if(this.state.username && this.state.password &&  this.state.email){
         console.log("Signup function");
         PostData('users', this.state).then ((result) => {
@@ -35,12 +34,11 @@ class Login extends React.Component  {
         });
       }
       else{
-        this.setState({error:'Make sure to fill out all the fields!'});
+        console.log('Make sure to fill out all the fields!');
       }
     }
     else{
-      this.setState({error:'Make sure your passwords match!'});
-    }
+        console.log('Make sure your passwords match!');    }
   }
 
   onChange(e){
