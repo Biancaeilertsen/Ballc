@@ -19,7 +19,6 @@ class Login extends React.Component  {
 
 
   signup(){
-    if(this.state.password === this.state.confpassword){
       if(this.state.username && this.state.password &&  this.state.email){
         console.log("Signup function");
         PostData('users', this.state).then ((result) => {
@@ -37,9 +36,7 @@ class Login extends React.Component  {
         console.log('Make sure to fill out all the fields!');
       }
     }
-    else{
-        console.log('Make sure your passwords match!');    }
-  }
+  
 
   onChange(e){
     this.setState({[e.target.name]: e.target.value});
