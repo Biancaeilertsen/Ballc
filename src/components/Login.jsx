@@ -9,7 +9,7 @@ class Login extends React.Component  {
     this.state={
       username:'',
       password:'',
-      redirect: false
+      email:'',
     }
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -18,9 +18,7 @@ class Login extends React.Component  {
   login(){
     if(this.state.username && this.state.password){
       console.log("Login function");
-      PostData('users', this.state).then ((result) => {
-        let responseJSON = result;
-      });
+      PostData('user', this.state)
     }
   }
 
@@ -46,6 +44,17 @@ class Login extends React.Component  {
                   validate error="wrong"
                   success="right"
                   onChange={this.onChange}/>
+
+                <p>Email:</p>
+                <Input
+                  name="email"
+                  group type="email"
+                  validate error="wrong"
+                  placeholder="Email"
+                  onChange={this.onChange}
+                success="right"/>
+
+
                 <p> Password: </p>
                 <Input
                   name="password"

@@ -1,61 +1,65 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
-import {PostData} from '../PostData';
 
 class Login extends React.Component  {
 
-  constructor(props){
-    super(props);
-    this.state={
+identifier = 0;
+
+constructor(){
+  super();
+  this.state = {
+    user:{
       username:'',
-      password:'',
       email:'',
-      error:'',
-      redirect: false
+      password:''
+    },
+  }
+}
+
+
+  inputHandler = (event)  =>{
+    const name= event.target.name;
+    const value = event.target.value;
+    let user = Object.assign({}, this.state.user);
+    if( name === 'username'){
+      user.username = value;
+      this.setState({user});
+      console.log(this.state);
     }
-    this.signup = this.signup.bind(this);
-    this.onChange = this.onChange.bind(this);
+    else if(name === 'email'){
+      user.email = value;
+      this.setState({user});
+      console.log(this.state);
+
+    }
+    else if(name === 'password'){
+      user.password = value;
+      this.setState({user});
+      console.log(this.state);
+    }
   }
 
+  submitHandler = () => {
+    let data = {
+      username: this.state.user.username,
+      email: this.state.user.email,
+      password: this.state.user.password,
 
-  signup(){
-      if(this.state.username && this.state.password &&  this.state.email){
-        console.log("Signup function");
-        PostData('users', this.state).then ((result) => {
-          let responseJSON = result;
-          if(responseJSON.userdata){
-            sessionStorage.setItem('userData',responseJSON );
-            this.setState({redirect: true});
-          }
-          else {
-            console.log("Login error");
-          }
-        });
-      }
-      else{
-        console.log('Make sure to fill out all the fields!');
-      }
     }
-  
 
-  onChange(e){
-    this.setState({[e.target.name]: e.target.value});
-    console.log(this.state);
+
+    fetch('https://ballc-frontend-be.herokuapp.com/user', {
+      method:'POST',
+      mode: 'no-cors',
+      body:JSON.stringify(data)
+    })
+    .then(response => response);
+    console.log("We've tried sending your info")
   }
-
 
 
 
   render() {
-
-  /*  if(this.state.redirect){
-      return(<Redirect to={'/teams'}/>)
-    }
-
-    if(sessionStorage.getItem("userData")){
-      return(<Redirect to={'/teams'}/>)
-    }*/
-
     return(
       <Container>
         <Row>
@@ -70,7 +74,7 @@ class Login extends React.Component  {
                   group type="text"
                   validate error="wrong"
                   placeholder="Username"
-                  onChange={this.onChange}
+                  onChange={this.inputHandler}
                 success="right"/>
 
                 <p>Email:</p>
@@ -79,7 +83,7 @@ class Login extends React.Component  {
                   group type="email"
                   validate error="wrong"
                   placeholder="Email"
-                  onChange={this.onChange}
+                  onChange={this.inputHandler}
                 success="right"/>
 
                 <p>Password:</p>
@@ -87,7 +91,7 @@ class Login extends React.Component  {
                   name="password"
                   group type="password"
                   placeholder="Password"
-                  onChange={this.onChange}
+                  onChange={this.inputHandler}
                 validate/>
 
                 <p>Confirm password:</p>
@@ -95,14 +99,13 @@ class Login extends React.Component  {
                   name="confpassword"
                   group type="password"
                   placeholder="Password"
-                  onChange={this.onChange}
                 validate/>
 
                 <p name="error"></p>
 
               </div>
               <div className="text-center">
-                <Button color="primary" onClick={this.signup} type="submit">Register</Button>
+                <Button color="primary" onClick={this.submitHandler} type="submit">Register</Button>
               </div>
             </form>
           </Col>

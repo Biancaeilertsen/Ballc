@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Next from './pages/Next';
 import Teams from './pages/Teams';
 import User from './pages/User';
+import Admin from './pages/Admin';
+
 /*import Seasons from './pages/Seasons';
 import Season1 from './pages/Season1';
 import Season2 from './pages/Season2';
@@ -28,6 +30,8 @@ class App extends Component {
           <Route path="/next" component={Next}></Route>
           <Route path="/Teams" component={Teams}></Route>
           <Route path="/User" component={User}></Route>
+          <Route path="/Admin" component={Admin}></Route>
+
         </div>
       </Router>
     );
