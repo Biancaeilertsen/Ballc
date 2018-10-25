@@ -1,81 +1,61 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
 
+import {PostData} from '../PostData';
+
+
 class Login extends React.Component  {
 
-identifier = 0;
 
-constructor(){
-  super();
-  this.state = {
-    user:{
+  constructor(props){
+    super(props);
+    this.state={
       username:'',
+      password:'',
       email:'',
-      password:''
-    },
-  }
-}
-
-
-  inputHandler = (event)  =>{
-    const name= event.target.name;
-    const value = event.target.value;
-    let user = Object.assign({}, this.state.user);
-    if( name === 'username'){
-      user.username = value;
-      this.setState({user});
-      console.log(this.state);
+      confpassword:'',
     }
-    else if(name === 'email'){
-      user.email = value;
-      this.setState({user});
-      console.log(this.state);
-
-    }
-    else if(name === 'password'){
-      user.password = value;
-      this.setState({user});
-      console.log(this.state);
-    }
-  }
-
-  submitHandler = () => {
-    let data = {
-      username: this.state.user.username,
-      email: this.state.user.email,
-      password: this.state.user.password,
-
-    }
-
-
-    fetch('https://ballc-frontend-be.herokuapp.com/user', {
-      method:'POST',
-      mode: 'no-cors',
-      body:JSON.stringify(data)
-    })
-    .then(response => response);
-    console.log("We've tried sending your info")
+    this.signup = this.signup.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
 
+  signup(){
+    if(this.state.password === this.state.confpassword){
+      if(this.state.username && this.state.password && this.state.email){
+        console.log("Login function");
+        PostData('user', this.state)
+      }
+      else {
+        alert("Please fill out all the fields!")
+      }
+    }
+    else{ alert("Please make sure your passwords match!")
+    }
+  }
+
+  onChange(e){
+    this.setState({[e.target.name]: e.target.value});
+    console.log(this.state);
+  }
 
   render() {
+
     return(
       <Container>
         <Row>
           <Col md="6">
             <form>
-              <p className="h5 text-center mb-4">Sign up</p>
+              <h1 className="h5 text-center mb-4">Log in</h1>
               <br/>
               <div className="grey-text">
                 <p>Username:</p>
                 <Input
                   name="username"
-                  group type="text"
+                  group type="username"
                   validate error="wrong"
-                  placeholder="Username"
-                  onChange={this.inputHandler}
-                success="right"/>
+                  success="right"
+                  onChange={this.onChange}/>
 
                 <p>Email:</p>
                 <Input
@@ -83,29 +63,27 @@ constructor(){
                   group type="email"
                   validate error="wrong"
                   placeholder="Email"
-                  onChange={this.inputHandler}
+                  onChange={this.onChange}
                 success="right"/>
 
-                <p>Password:</p>
+
+                <p> Password: </p>
                 <Input
                   name="password"
                   group type="password"
-                  placeholder="Password"
-                  onChange={this.inputHandler}
+                  onChange={this.onChange}
                 validate/>
 
-                <p>Confirm password:</p>
+                <p> Confirm Password: </p>
                 <Input
                   name="confpassword"
                   group type="password"
-                  placeholder="Password"
+                  onChange={this.onChange}
                 validate/>
-
-                <p name="error"></p>
-
               </div>
+
               <div className="text-center">
-                <Button color="primary" onClick={this.submitHandler} type="submit">Register</Button>
+                <Button color="primary" onClick={this.signup} >Login</Button>
               </div>
             </form>
           </Col>

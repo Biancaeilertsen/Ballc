@@ -1,13 +1,18 @@
 import React from 'react';
-import { Formgroup, Formcontrol } from 'react-bootstrap';
+import {ListGroup, ListGroupItem, Formgroup, Formcontrol } from 'react-bootstrap';
 import { Container, Row, Col, Input, Button } from 'mdbreact';
+import './Teamform.css'
 
 export default class Teamform extends React.Component  {
 //REMEBER TO PUT A <ROW> INFRONT OF THE CALL, PLS
+
+alertClicked(){
+  alert('You clicked the third ListGroupItem');
+}
+
   render() {
     return(
-      <Container>
-        <Col md="6">
+        <Col xs={12} sm={6} className="Teamwrapper">
           <form>
             <p className="h5 text-center mb-4">CREATE A TEAM</p>
             <br/>
@@ -72,7 +77,7 @@ export default class Teamform extends React.Component  {
                 onChange={this.onChange}
               success="right"/>
 
-              
+
               <label>Owner</label>
               <Input
                 name="owner"
@@ -83,11 +88,13 @@ export default class Teamform extends React.Component  {
 
             </div>
             <div className="text-center">
-              <Button color="primary" onClick={this.submitHandler} type="submit">Save team</Button>
+              <Button className="teamformbtn" color="primary" onClick={this.submitHandler} type="submit">Create team</Button>
+              <Button className="teamformbtnSave" color="primary" onClick={this.submitHandler} type="submit">Save team</Button>
+              <Button className="teamformbtnDel" color="primary" onClick={this.submitHandler} type="submit">Delete team</Button>
+
             </div>
           </form>
         </Col>
-      </Container>
     );
   }
 };

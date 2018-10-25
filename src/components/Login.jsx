@@ -9,7 +9,6 @@ class Login extends React.Component  {
     this.state={
       username:'',
       password:'',
-      email:'',
     }
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -44,17 +43,7 @@ class Login extends React.Component  {
                   validate error="wrong"
                   success="right"
                   onChange={this.onChange}/>
-
-                <p>Email:</p>
-                <Input
-                  name="email"
-                  group type="email"
-                  validate error="wrong"
-                  placeholder="Email"
-                  onChange={this.onChange}
-                success="right"/>
-
-
+                
                 <p> Password: </p>
                 <Input
                   name="password"
